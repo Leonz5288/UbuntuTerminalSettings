@@ -3,7 +3,7 @@ set nocompatible              " use Vim defaults instead of Vi defaults
 " appearances
 syntax enable
 set number
-" set relativenumber
+set relativenumber
 set nowrap
 set cursorline
 set ruler
@@ -58,9 +58,9 @@ filetype off                    " native-vim filetype detection; need to be off 
 
 
 " here goes plugins
-let $MYVIMRC='$HOME/.vimrc'     " TODO: change vimdir, .vimrc path?
+let $MYVIMRC='$HOME/.config/nvim/init.vim'     " TODO: change vimdir, .vimrc path?
 
-set rtp+=$HOME/.vim/bundle/Vundle.vim
+set rtp+=$HOME/.config/nvim/bundle/Vundle.vim
 call vundle#begin()     " alternative: pass a path
 Plugin 'VundleVim/Vundle.vim'
 
@@ -188,14 +188,21 @@ nnoremap <silent> <leader>ww :call WindowSwap#EasyWindowSwap()<CR>
 let &rtp .= ',' . expand('<sfile>p:h')
 filetype plugin indent on
 
-
-
-
-
-
+" Use jj to exit modes.
+inoremap jj <ESC>
 
 " REMAP
 let mapleader = "\<Space>"
+
+" Comment shortcuts
+vnoremap <leader>/ :norm i//<CR>
+vnoremap <leader>3 :norm i#<CR>
+vnoremap <leader>q :norm x<CR>
+vnoremap <leader>eq :norm xx<CR>
+nnoremap <leader>/ :norm ^i//<CR>
+nnoremap <leader>3 :norm ^i#<CR>
+nnoremap <leader>q :norm ^x<CR>
+nnoremap <leader>eq :norm ^xx<CR>
 
 " move lines
 nnoremap <A-j> :m .+1<CR>==

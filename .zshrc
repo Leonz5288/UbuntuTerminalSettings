@@ -99,18 +99,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export BRAICHI_REPO_DIR=~/repos/braichi
-export PYTHONPATH=$BRAICHI_REPO_DIR:$PYTHONPATH
-export PATH=/usr/local/cuda-11.2/bin:$PATH
+export PATH=/usr/local/cuda-11.5/bin:$PATH
 export PATH=/usr/local/go/bin:$PATH
 export PATH=/home/leon/go/bin:$PATH
-export PATH=/home/leon/repos/depot_tools:$PATH
-export CXX=clang++
 export GIT_EDITOR=vim
 export VISUAL=vim
 export EDITOR="$VISUAL"
-
-source /home/leon/repos/vulkan/1.2.182.0/setup-env.sh
 
 function gcop() {
     git log --color=always --format="%C(cyan)%h %C(blue)%ar%C(auto)%d \
@@ -122,6 +116,8 @@ function gcop() {
         --bind "ctrl-c:execute:$_gitLogLineToHash | xclip -r -selection clipboard"
 }
 
+alias vim="nvim"
+bindkey '^ ' autosuggest-accept
 
 # git shortcut
 alias lg='lazygit'
@@ -148,10 +144,8 @@ alias vd='vim -d'
 alias nv='nvim'
 alias nvd='nvim -d'
 
-# open/execute files/apps
-alias o='xdg-open'
-alias wslo='explorer.exe'
-alias k='kstart5'
+# k8s shortcuts
+alias k='kubectl'
 
 # update, clean, install, remove for ubuntu
 alias update='sudo apt update && sudo apt upgrade'
@@ -176,3 +170,24 @@ alias bat='batcat'
 alias hf='history | fzf'
 alias s='source'
 alias sz='source ~/.zshrc'
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
+
+source <(kubectl completion zsh)
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/leon/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/leon/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/leon/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/leon/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
